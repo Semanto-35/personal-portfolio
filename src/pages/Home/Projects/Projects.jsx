@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const ProjectDetails = () => {
-  const { id } = useParams();
+const Projects = () => {
   const projects = [
     {
       id: 1,
@@ -39,40 +38,38 @@ const ProjectDetails = () => {
     }
   ];
 
-  const project = projects.find(pro => pro.id == id);
-
-  if (!project) {
-    return <div className="text-center text-white py-20">Project not found.</div>;
-  }
-
-
-
   return (
-    <section className="max-w-7xl mx-auto px-6 bg-gray-900 pt-32 pb-16 text-white">
-      <motion.h1
-        className="text-4xl font-bold mb-6"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        {project.name}
-      </motion.h1>
-      <motion.img
-        src={project.image}
-        alt={project.name}
-        className="w-full h-96 object-cover rounded-lg mb-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      />
-      <p className="text-lg mb-4">{project.description}</p>
-      <p className="text-md mb-2"><strong>Tech Stack:</strong> {project.techStack}</p>
-      <p className="text-md mb-2"><strong>Challenges:</strong> {project.challenges}</p>
-      <p className="text-md mb-4"><strong>Improvements:</strong> {project.improvements}</p>
-      <div className="flex gap-4">
-        <a href={project.liveLink} className="bg-purple-600 py-2 px-4 rounded-lg hover:bg-purple-700" target="_blank" rel="noopener noreferrer">Live Demo</a>
-        <a href={project.githubLink} className="bg-gray-700 py-2 px-4 rounded-lg hover:bg-gray-800" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <section id="projects" className="py-16 max-w-7xl mx-auto bg-gray-900 text-white">
+      <div className="container mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center mb-8">Featured Projects</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              className="bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <img src={project.image} alt={project.name} className="w-full h-56 object-cover" />
+              <div className="p-6">
+                <h3 className="text-xl font-bold">{project.name}</h3>
+                <p className="mt-2 text-gray-300">{project.description}</p>
+                <div className="mt-4 flex justify-between">
+                  <a href={project.liveLink} target="_blank" className="text-blue-400 font-medium hover:underline">Live site view</a>
+                  <a href={project.githubLink} target="_blank" className="text-gray-400 font-medium hover:underline">Resources</a>
+                </div>
+                <Link to={`details/${project.id}`} className="block mt-4 bg-purple-600 text-white font-medium text-center py-2 rounded-lg hover:bg-purple-700">
+                  View More
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-export default ProjectDetails;
+export default Projects;
