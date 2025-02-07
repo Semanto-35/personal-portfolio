@@ -8,7 +8,9 @@ const Navbar = () => {
   return (
     <nav className="max-w-7xl mx-auto fixed top-0 left-0 right-0 w-full bg-gray-800 shadow-md z-50 ">
       <div className="flex items-center justify-between p-4 shadow-2xl">
+        <a href="/">
         <h1 className="text-2xl font-bold text-white">Portfolio.</h1>
+        </a>
 
         <div className="hidden md:block">
           <ul className="flex text-white items-center gap-6 font-medium">
